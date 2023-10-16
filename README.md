@@ -11,21 +11,43 @@
 
 ## TCP Problems
 1. What is the IP address and TCP port number used by the client computer (source) that is transferring the file to gaia.cs.umass.edu?
+    - Pertama, dapatkan dulu ip dari `gaia.cs.umass.edu` dengan cara `ping gaia.cs.umass.edu` di terminal
+      ![ping](/img/0.png)
+    - Filter packet with ip `gaia.cs.umass.edu` : ip.addr == 128.119.245.12
+    - Result :
+        ![soal1](/img/1.png)
+    - Dari data trace file di atas, dapat dilihat bahwa IP address dari client computer adalah `192.168.86.68` dan menggunakan port `55639`
 
 2. What is the IP address of gaia.cs.umass.edu? On what port number is it sending and receiving TCP segments for this connection?
+    - Dari hasil ping `gaia.cs.umass.edu` sebelumnya didapatkan IP address `128.119.245.12`
+    - Dan dari hasil filter di soal sebelumnya, dapat dilihat bahwa port yang digunakan adalah `80`
 
 3. What is the sequence number of the TCP SYN segment that is used to initiate the TCP connection between the client computer and gaia.cs.umass.edu? What is it in this TCP segment that identifies the segment as a SYN segment?Will the TCP receiver in this session be able to use Selective Acknowledgments?
+    - Pada packet initial, dapat dilihat seperti ini :
+        ![soal3](/img/3.png)
+    - Didapatkan untuk sequence number of the TCP SYN segment adalah `seq = 0` atau `seq (raw) = 4236649187`
+    - Di dalam packet tersebut terdapat flag `SYN: Set` yang menandakan bahwa packet tersebut adalah SYN segment, sehingga bisa digunakan sebagai selective acknowledgments
 
 4. What is the sequence number of the SYNACK segment sent by gaia.cs.umass.edu to the client computer in reply to the SYN? What is it in the segment that identifies the segment as a SYNACK segment? What is the value of theAcknowledgementfield in the SYNACK segment? How did gaia.cs.umass.edu determine that value?
+    - Pada packet SYNACK, dapat dilihat seperti ini :
+        ![soal4](/img/4.png)
+    - Didapatkan untuk sequence number of the SYNACK segment adalah `seq = 0` atau `seq (raw) = 1068969752`
+    - Didapatkan untuk acknowledgement number of the SYNACK segment adalah `ack = 1` atau `ack (raw) = 4236649188`. Acknowledgement number didapatkan dari sequence number dari SYN segment ditambah 1 `(ACK=Seq no+1)`. 
 
 5. What is the sequence number of the TCP segment containing the header of the HTTP POST command? How many bytes of data are contained in the payload (data) field of this TCP segment? Did all of the data in the transferred file alice.txt fit into this single segment?
+    - Pada packet HTTP POST, dapat dilihat seperti ini :
+        ![soal5](/img/5.png)
+    - Didapatkan untuk sequence number of the HTTP POST segment adalah `seq = 152041` atau `seq (raw) = 4236801228`
+    - Didapatkan untuk payload (data) field of this TCP segment adalah `payload = 1385 bytes` atau 
+    - Detail packet memiliki keterangan bahwa packet dikirimkan menggunakan multipart or `MIME` sehingga data yang dikirimkan tidak hanya satu segment saja, melainkan beberapa segment. Payload yang dikirimkan sebesar `1385 bytes` sedangkan alice.txt sebesar `149KB`
 
 6. Consider the TCP segment containing the HTTP “POST”as the first segment in the data transfer part of the TCP connection.
-- At what time was the firstsegment(the onecontaining the HTTP POST) in the data-transfer part of the TCP connection sent?
-- At what timewas the ACK for this firstdata-containing segment received?
-- What is the RTT for this first data-containing segment?
-- What is the RTT value the seconddata-carrying TCP segment and its ACK?
-- What is the EstimatedRTTvalue (see Section 3.5.3, in the text) after the ACK for the second data-carryingsegmentis received?
+    ![soal6](/img/6.png)
+    - At what time was the firstsegment(the onecontaining the HTTP POST) in the data-transfer part of the TCP connection sent?
+    - At what timewas the ACK for this firstdata-containing segment received?
+    - What is the RTT for this first data-containing segment?
+    - What is the RTT value the seconddata-carrying TCP segment and its ACK?
+    - What is the EstimatedRTTvalue (see Section 3.5.3, in the text) after the ACK for the second data-carryingsegmentis received?
 
 7. What is the length (headerplus payload) ofeach ofthe first fourdata-carrying TCP segments?
 
