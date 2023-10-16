@@ -110,15 +110,34 @@
 ## UDP Problems
 
 1. Select one UDP packet from your trace. From this packet, determine how many fields there are in the UDP header. (You shouldn’t look in the textbook! Answer these questions directly from what you observe in the packet trace.) Name these fields.
+    ![soal1](/img/udp-1.png)
+    - Dari packet di atas, didapatkan bahwa terdapat 4 field pada UDP header yaitu Source Port, Destination Port, Length, dan Checksum.
 
 2. By consulting the displayed information in Wireshark’s packet content field for this packet, determine the length (in bytes) of each of the UDP header fields.
+    ![soal2](/img/udp-2.png)
+    Dari packet di atas, didapatkan bahwa length dari setiap field adalah :
+      - Source Port : 2 bytes
+      - Destination Port : 2 bytes
+      - Length : 2 bytes
+      - Checksum : 2 bytes
+    
+      Sehingga total length dari UDP header adalah `2 + 2 + 2 + 2 = 8 bytes`
 
 3. The value in the Length field is the length of what? (You can consult the text for this answer). Verify your claim with your captured UDP packet.
+    ![soal3](/img/udp-1.png)
+    Length field dalam UDP packet adalah besaran dari gabungan UDP header dan UDP payload. Dari packet di atas, didapatkan bahwa length dari UDP header adalah `8 bytes` dan total length `43 bytes` sehingga length dari UDP payload adalah `43 - 8 = 35 bytes`
 
 4. What is the maximum number of bytes that can be included in a UDP payload? (Hint: the answer to this question can be determined by your answer to 2. above)
+    - Maximum bytes yang dapat dimasukkan ke dalam UDP payload adalah (2^16-1) bytes termasuk header bytes. Sehingga, maximum bytes yang dapat dimasukkan ke dalam UDP payload adalah `(2^16-1)-8 = 65527 bytes`
 
 5. What is the largest possible source port number? (Hint: see the hint in 4.)
+    - Largest possible source port number adalah `(2^16-1) = 65535`
 
 6. What is the protocol number for UDP? Give your answer in both hexadecimal and decimal notation. To answer this question, you’ll need to look into the Protocol field of the IP datagram containing this UDP segment (see Figure 4.13 in the text, and the discussion of IP header fields).
+    ![soal6](/img/udp-6.png)
+    - Dari packet di atas, didapatkan bahwa protocol number untuk UDP adalah `0x11` atau `17` dalam decimal notation.
 
 7. Examine a pair of UDP packets in which your host sends the first UDP packet and the second UDP packet is a reply to this first UDP packet. (Hint: for a second packet to be sent in response to a first packet, the sender of the first packet should be the destination of the second packet). Describe the relationship between the port numbers in the two packets.
+    ![soal7](/img/udp-7a.png)
+    ![soal7](/img/udp-7b.png)
+    - Port source dari paket yang dikirim oleh host sama dengan port destination dari paket balasan. Begitu juga sebaliknya.
