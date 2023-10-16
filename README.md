@@ -91,6 +91,7 @@
     ![soal10-1](/img/10-2.png)
 
 11. What is the throughput (bytes transferred per unit time) for the TCP connection? Explain how you calculated this value.
+    
     ![soal11](/img/11.png)
   - Cara menghitung throughput adalah $Throughput=\frac{DataSize}{time}$
   - Didapatkan bahwa waktu yang dibutuhkan untuk mengirimkan data secara total (last segment - first segment) adalah `0.192732 seconds` dan data yang dikirimkan dapat dihitung dari (last ack - first ack) adalah `153426 bytes`. Sehingga didapatkan throughput sebesar : 
