@@ -64,6 +64,20 @@
      - Segment kedua dikirimkan pada `frame: 5` yang dimana ACK dari segment kedua diterima pada `frame: 8` sehingga didapatkan RTT dari segment kedua adalah `0.028628 seconds`
        ![soal6-3](/img/6-3.png)
    - What is the EstimatedRTTvalue (see Section 3.5.3, in the text) after the ACK for the second data-carryingsegmentis received?
+      
+      Table Estimated RTT
+      | Segment | Sent Time | Received Time | RTT |
+      | ------- | --------- | ------------- | --- |
+      | 1       | 0.24047   | 0.052671      | 0.028624 |
+      | 2       | 0.24048   | 0.052676      | 0.028628 |
+
+      EstimatedRTT = 0.875 * EstimatedRTT + 0.125 * SampleRTT
+
+      - EstimatedRTT setelah ACK dari segment kedua diterima adalah :
+      
+        **EstimatedRTT** = `(0.875 * 0.028624) + (0.125 * 0.028628) = 0.0286245 s` 
+        diasumsikan bahwa EstimatedRTT diambil dari segment 1 dan SampleRTT diambil dari segment 2
+
 
 7. What is the length (headerplus payload) ofeach ofthe first fourdata-carrying TCP segments?
    ![soal7](/img/6.png)
