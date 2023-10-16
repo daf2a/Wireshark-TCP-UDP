@@ -44,7 +44,7 @@
    - Pada packet HTTP POST, dapat dilihat seperti ini :
      ![soal5](/img/5.png)
    - Didapatkan untuk sequence number of the HTTP POST segment adalah `seq = 152041` atau `seq (raw) = 4236801228`
-   - Didapatkan untuk payload (data) field of this TCP segment adalah `payload = 1385 bytes` atau
+   - Didapatkan untuk payload (data) field of this TCP segment adalah `payload = 1385 bytes`
    - Detail packet memiliki keterangan bahwa packet dikirimkan menggunakan multipart or `MIME` sehingga data yang dikirimkan tidak hanya satu segment saja, melainkan beberapa segment. Payload yang dikirimkan sebesar `1385 bytes` sedangkan alice.txt sebesar `149KB`
 
 6. Consider the TCP segment containing the HTTP “POST”as the first segment in the data transfer part of the TCP connection.
@@ -84,16 +84,27 @@
 9. Are there any retransmitted segments in the trace file? What did you check for (in the trace) in order to answer this question?
     - Retransimtted segments dapat dideteksi melalui sequence no. Ketika melakukan pengiriman ulang maka terdapat paket yang sequence no paket selanjutnya tidak lebih besar dari sequence no paket sebelumnya. Dari trace file yang ada, tidak terdapat retransmitted segments.
 
-10. How much data does the receiver typically acknowledgein an ACK among the first ten data-carrying segments sent from the client to gaia.cs.umass.edu? Can you identify cases where the receiver is ACKing every other received segment (see Table 3.2 in the text)among these first ten data-carrying segments?  
+10. How much data does the receiver typically acknowledgein an ACK among the first ten data-carrying segments sent from the client to gaia.cs.umass.edu? Can you identify cases where the receiver is ACKing every other received segment (see Table 3.2 in the text) among these first ten data-carrying segments?
+    ![soal10](/img/10.png)
+    - the receiver typically acknowledge in an ACK among the first ten data-carrying segments sent from the client to gaia.cs.umass.edu is `1448 bytes` in an ack. if the data is doubled then that segment is acking every other received segment.
+    - for example in second segment, the data is doubled from 1448 to 2896 bytes. so the receiver is acking every other received segment.
+    ![soal10-1](/img/10-2.png)
 
 11. What is the throughput (bytes transferred per unit time) for the TCP connection? Explain how you calculated this value.
+    ![soal11](/img/11.png)
+  - Cara menghitung throughput adalah $Throughput=\frac{DataSize}{time}$
+  - Didapatkan bahwa waktu yang dibutuhkan untuk mengirimkan data secara total (last segment - first segment) adalah `0.192732 seconds` dan data yang dikirimkan dapat dihitung dari (last ack - first ack) adalah `153426 bytes`. Sehingga didapatkan throughput sebesar : 
 
-12. Use the Time-Sequence-Graph(Stevens) plotting tool to view the sequence number versus time plot of segments being sent from the client to the gaia.cs.umass.edu server. Consider the “fleets”of packets sent around t= 0.025, t=0.053, t=0.082 and t=0.1. Comment on whether this looks as if TCP is in itsslow start phase, congestion avoidance phase or some other phase.Figure 6 shows a slightly different view of this data.
+    $Throughput  = \frac{153426}{0.192732} = 796053.587$
 
-13. These “fleets”of segments appear to have some periodicity. What can you say about the period?
+12. Use the Time-Sequence-Graph(Stevens) plotting tool to view the sequence number versus time plot of segments being sent from the client to the gaia.cs.umass.edu server. Consider the “fleets” of packets sent around t= 0.025, t=0.053, t=0.082 and t=0.1. Comment on whether this looks as if TCP is in itsslow start phase, congestion avoidance phase or some other phase.Figure 6 shows a slightly different view of this data.
+    ![soal12](/img/12.png)
+    - Dari grafik di atas, dapat dilihat bahwa TCP berada pada slow start phase karena pada saat itu terjadi peningkatan yang signifikan pada sequence number, pada t=0.025, t=0.053, t=0.082 dan t=0.1.
 
-14. Answer each of two questions above for the trace that you have gathered when
-    you transferred a file from your computer to gaia.cs.umass.edu
+13. These “fleets” of segments appear to have some periodicity. What can you say about the period?
+    - TCP mengalami fase awal yang lebih lambat (slow start) sekitara 0.025 setelah awal koneksi. Fase ini adalah bagian awal dari proses pengiriman data TCP.
+    - Sekitar detik 0.053 dan 0.082 setelah awal koneksi, TCP memasuki fase penghindaran kemacetan (congestion avoidance) yang mana TCP akan menghindari terjadinya kemacetan pada jaringan dengan cara mengurangi jumlah paket yang dikirimkan.
+    - Pola pengiriman yang tidak biasa bisa disebabkan oleh flow control yang tidak stabil, bisa dikarenakan server HTTP yang melakukan pembatasan kecepatan pengiriman data.
 
 ## UDP Problems
 
